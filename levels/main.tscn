@@ -14,7 +14,7 @@ size = Vector3(30, 2, 30)
 [node name="Main" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource("1_u2fcl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.72256, 0)
+transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 2.72256, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

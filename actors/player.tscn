@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://18uqiyaprh6k"]
+[gd_scene load_steps=4 format=3 uid="uid://18uqiyaprh6k"]
 
 [ext_resource type="Script" path="res://actors/player.gd" id="1_ljs3r"]
+[ext_resource type="ArrayMesh" uid="uid://dbq02r5asrkgb" path="res://models/Australian Cattle Dog/13463_Australian_Cattle_Dog_v3.obj" id="2_b20du"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4mrlv"]
 height = 1.49364
@@ -14,5 +15,16 @@ script = ExtResource("1_ljs3r")
 shape = SubResource("CapsuleShape3D_4mrlv")
 
 [node name="Camera" type="Camera3D" parent="."]
+fov = 90.0
+
+[node name="Ears" type="MeshInstance3D" parent="Camera"]
+transform = Transform3D(-0.0449999, 9.57069e-05, -9.18766e-06, 9.04995e-05, 0.040711, -0.0191731, -3.24665e-05, -0.0191731, -0.0407111, -0.00324807, 1.28659, 0.637603)
+mesh = ExtResource("2_b20du")
+skeleton = NodePath("../../Pivot")
+
+[node name="Nose" type="MeshInstance3D" parent="Camera"]
+transform = Transform3D(-0.0609188, 9.56349e-05, -9.18833e-06, -9.71724e-05, -0.0305579, 0.0330146, 8.65967e-05, 0.0329873, 0.0305832, -0.00324807, -1.38418, -0.025772)
+mesh = ExtResource("2_b20du")
+skeleton = NodePath("../../Pivot")
 
 [node name="Marker3D" type="Marker3D" parent="."]
