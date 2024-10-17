@@ -1,7 +1,5 @@
 extends CharacterBody3D
 
-
-# Variables
 @export var speed: float = 5.0
 @export var acceleration: float = 100.0
 @export var camera_sens: float = 1
@@ -16,7 +14,6 @@ var walk_vel: Vector3
 @onready var camera: Camera3D = $Camera
 
 
-# Prototypes
 func _ready():
 	capture_mouse()
 
@@ -33,9 +30,7 @@ func _physics_process(delta):
 	if mouse_captured: _handle_joystick_camera_rotation(delta)
 	velocity = _walk(delta)
 	move_and_slide()
-
-
-# Methods
+	
 func capture_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	mouse_captured = true
