@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d01fqpxe21yg3"
-path.s3tc="res://.godot/imported/Australian_Cattle_Dog_dif.jpg-2d5741dc7f048aafa09bd68405a6d7fa.s3tc.ctex"
+path.s3tc="res://.godot/imported/Australian_Cattle_Dog_dif.jpg-3c342e40a070f390fd3f0e939821aa29.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/Australian Cattle Dog/Australian_Cattle_Dog_dif.jpg"
-dest_files=["res://.godot/imported/Australian_Cattle_Dog_dif.jpg-2d5741dc7f048aafa09bd68405a6d7fa.s3tc.ctex"]
+source_file="res://meshes/Australian Cattle Dog/Australian_Cattle_Dog_dif.jpg"
+dest_files=["res://.godot/imported/Australian_Cattle_Dog_dif.jpg-3c342e40a070f390fd3f0e939821aa29.s3tc.ctex"]
 
 [params]
 
