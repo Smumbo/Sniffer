@@ -1,7 +1,7 @@
 extends Area3D
 class_name SniffableObject
 
-@export var sniffed = false
+@export var object_sniffed = false
 @export var object_name: String
 @export var sniff_time: float = 1.0
 @export var fog: FogVolume
@@ -13,7 +13,7 @@ var is_being_looked_at
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if sniffed:
+	if object_sniffed:
 		pass
 	
 	if is_being_looked_at and Input.is_action_just_pressed("sniff"):
@@ -26,7 +26,8 @@ func _process(delta):
 
 
 func _on_timer_timeout():
-	sniffed = true
+	Events.emit_signal("sniffed")
+	object_sniffed = true
 	var fog_material: FogMaterial = fog.material
 	fog_material.density = 0.0
 	print("Sniffed " + object_name)

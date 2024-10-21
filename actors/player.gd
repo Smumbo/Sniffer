@@ -18,17 +18,7 @@ func _ready():
 	capture_mouse()
 
 func _process(delta):
-	if sniffcast.is_colliding():
-		var new_target: SniffableObject = sniffcast.get_collider()
-		if new_target != target:
-			if is_instance_valid(target):
-				target.is_being_looked_at = false
-			target = new_target
-			target.is_being_looked_at = true
-	else:
-		if is_instance_valid(target):
-			target.is_being_looked_at = false
-			
+	check_sniffcast()
 
 func _unhandled_input(event):
 	# Handle mouse input for camera movement
@@ -70,3 +60,14 @@ func _walk(delta: float) -> Vector3:
 	walk_vel = walk_vel.move_toward(walk_dir * speed * move_dir.length(), acceleration * delta)
 	return walk_vel
 	
+func check_sniffcast():
+	if sniffcast.is_colliding():
+		var new_target: SniffableObject = sniffcast.get_collider()
+		if new_target != target:
+			if is_instance_valid(target):
+				target.is_being_looked_at = false
+			target = new_target
+			target.is_being_looked_at = true
+	else:
+		if is_instance_valid(target):
+			target.is_being_looked_at = false

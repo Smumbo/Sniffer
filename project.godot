@@ -15,10 +15,19 @@ run/main_scene="res://levels/main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Events="*res://scripts/events.gd"
+Main="*res://scripts/main.gd"
+
 [editor]
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[global_group]
+
+sniffable=""
 
 [input]
 

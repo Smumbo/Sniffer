@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://actors/sniffable_object.gd" id="1_bkvby"]
 
-[node name="SniffableObject" type="Area3D"]
+[node name="SniffableObject" type="Area3D" groups=["sniffable"]]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_bkvby")

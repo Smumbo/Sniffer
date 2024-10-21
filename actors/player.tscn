@@ -7,7 +7,6 @@
 height = 1.49364
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_mmjp5"]
-dof_blur_far_enabled = true
 dof_blur_near_enabled = true
 dof_blur_near_distance = 1.0
 
@@ -23,17 +22,19 @@ shape = SubResource("CapsuleShape3D_4mrlv")
 attributes = SubResource("CameraAttributesPractical_mmjp5")
 fov = 90.0
 
-[node name="Ears" type="MeshInstance3D" parent="Camera"]
+[node name="ViewModel" type="Node3D" parent="Camera"]
+
+[node name="Ears" type="MeshInstance3D" parent="Camera/ViewModel"]
 transform = Transform3D(-0.0449999, 9.57069e-05, -9.18766e-06, 9.04995e-05, 0.040711, -0.0191731, -3.24665e-05, -0.0191731, -0.0407111, -0.00324807, 1.28659, 0.637603)
 cast_shadow = 0
 mesh = ExtResource("2_b20du")
-skeleton = NodePath("../../Pivot")
+skeleton = NodePath("../../../Pivot")
 
-[node name="Nose" type="MeshInstance3D" parent="Camera"]
+[node name="Nose" type="MeshInstance3D" parent="Camera/ViewModel"]
 transform = Transform3D(-0.0609188, 9.56349e-05, -9.18833e-06, -9.71724e-05, -0.0305579, 0.0330146, 8.65967e-05, 0.0329873, 0.0305832, -0.00324807, -1.38418, -0.025772)
 cast_shadow = 0
 mesh = ExtResource("2_b20du")
-skeleton = NodePath("../../Pivot")
+skeleton = NodePath("../../../Pivot")
 
 [node name="Sniffcast" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -2)
