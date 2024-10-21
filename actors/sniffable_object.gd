@@ -15,20 +15,19 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if is_targeted and not object_sniffed:
-		if object_sniffed:
-			Events.emit_signal("looking_at", object_name)
-		elif Input.is_action_just_pressed("sniff"):
-			timer.start(sniff_time)
+	if is_targeted and not object_sniffed and Input.is_action_just_pressed("sniff"):
+		timer.start(sniff_time)
 	if not timer.is_stopped():
 		if not is_targeted:
 			timer.stop()
+			Events.emit_signal("hide_prompt")
 		if Input.is_action_just_released("sniff"):
 			timer.stop()
 
 
 func _on_timer_timeout():
 	Events.emit_signal("sniffed")
+	Events.emit_signal("hide_prompt")
 	object_sniffed = true
 	var fog_material: FogMaterial = fog.material
 	fog_material.density = 0.0
@@ -36,8 +35,13 @@ func _on_timer_timeout():
 
 func set_targeted(value: bool):
 	is_targeted = value
-	if is_targeted and object_sniffed:
-		Events.emit_signal("looking_at", object_name)
-	elif not is_targeted and object_sniffed:
-		Events.emit_signal("stop_looking")
+	if is_targeted:
+		if object_sniffed:
+			Events.emit_signal("show_name", object_name)
+		else:
+			Events.emit_signal("show_prompt")
+	else:
+		Events.emit_signal("hide_prompt")
+		if object_sniffed:
+			Events.emit_signal("hide_name")
 	

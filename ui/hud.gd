@@ -26,10 +26,12 @@ func _ready():
 	progress_bar_timer.timeout.connect(hide_progress_bar)
 	
 	# Update object name label
-	Events.connect("looking_at", show_object_name)
-	Events.connect("stop_looking", hide_object_name)
+	Events.connect("show_name", show_object_name)
+	Events.connect("hide_name", hide_object_name)
 	
-
+	# Update button prompts
+	Events.connect("show_prompt", show_button_prompt)
+	Events.connect("hide_prompt", hide_button_prompt)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -42,14 +44,12 @@ func _process(delta):
 		progress_bar_timer.stop()
 		complete = true
 		
-
 func hide_level_name():
 	$LevelName/AnimationPlayer.play("hide_level_name")
 
 func update_progress_bar():
 	progress = Main.completion_percent
 	$LevelProgressBar/AnimationPlayer.play("show_progress_bar")
-	
 func hide_progress_bar():
 	if not complete:
 		$LevelProgressBar/AnimationPlayer.play("hide_progress_bar")
@@ -57,6 +57,18 @@ func hide_progress_bar():
 func show_object_name(object_name: String):
 	$ObjectName.text = object_name
 	$ObjectName.visible = true
-
 func hide_object_name():
 	$ObjectName.visible = false
+
+func show_button_prompt():
+	$ButtonPrompts.visible = true
+	if Main.curr_control_method == Main.ControlMethod.KBM:
+		$ButtonPrompts/PCButtonPrompts.visible = true
+		$ButtonPrompts/ConsoleButtonPrompts.visible = false
+	else:
+		$ButtonPrompts/PCButtonPrompts.visible = false
+		$ButtonPrompts/ConsoleButtonPrompts.visible = true
+	
+func hide_button_prompt():
+	$ButtonPrompts.visible = false
+	
