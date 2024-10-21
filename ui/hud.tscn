@@ -13,7 +13,6 @@
 [sub_resource type="LabelSettings" id="LabelSettings_0t8va"]
 font = ExtResource("2_xg3s2")
 font_size = 26
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_3yap3"]
 resource_name = "hide_level_name"
@@ -28,7 +27,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ksi10"]
