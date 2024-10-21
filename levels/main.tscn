@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bi4sheyu36skv"]
+[gd_scene load_steps=53 format=3 uid="uid://bi4sheyu36skv"]
 
 [ext_resource type="PackedScene" uid="uid://18uqiyaprh6k" path="res://actors/player.tscn" id="1_u2fcl"]
 [ext_resource type="Material" uid="uid://i35entxuktx5" path="res://materials/couch.tres" id="2_3d1u6"]
@@ -107,17 +107,80 @@ top_radius = 3.0
 bottom_radius = 3.0
 height = 0.1
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_qyvus"]
+radius = 3.55676
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gyqxa"]
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_yx6g3"]
+noise = SubResource("FastNoiseLite_gyqxa")
+
+[sub_resource type="FogMaterial" id="FogMaterial_f38cg"]
+density = 20.0
+emission = Color(1, 1, 1, 1)
+density_texture = SubResource("NoiseTexture3D_yx6g3")
+
 [sub_resource type="SphereMesh" id="SphereMesh_g17i0"]
 radius = 0.25
 height = 0.5
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_hdcs3"]
+radius = 0.79036
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ak3ll"]
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_vep8t"]
+noise = SubResource("FastNoiseLite_ak3ll")
+
+[sub_resource type="FogMaterial" id="FogMaterial_qkeov"]
+density = 20.0
+emission = Color(1, 1, 1, 1)
+edge_fade = 1e-05
+density_texture = SubResource("NoiseTexture3D_vep8t")
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_x71kr"]
 height = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7y554"]
+radius = 1.01741
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_h3vu5"]
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_f27uq"]
+noise = SubResource("FastNoiseLite_h3vu5")
+
+[sub_resource type="FogMaterial" id="FogMaterial_22u3d"]
+density = 20.0
+emission = Color(1, 1, 1, 1)
+density_texture = SubResource("NoiseTexture3D_f27uq")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i0tha"]
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_1igea"]
+noise = SubResource("FastNoiseLite_i0tha")
+
+[sub_resource type="FogMaterial" id="FogMaterial_8ny4a"]
+density = 20.0
+emission = Color(1, 1, 1, 1)
+density_texture = SubResource("NoiseTexture3D_1igea")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_2aq8y"]
 top_radius = 0.1
 bottom_radius = 0.1
 height = 0.3
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_m5eti"]
+radius = 1.9679
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_k06xa"]
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_a2022"]
+noise = SubResource("FastNoiseLite_k06xa")
+
+[sub_resource type="FogMaterial" id="FogMaterial_lppyu"]
+density = 20.0
+emission = Color(1, 1, 1, 1)
+density_texture = SubResource("NoiseTexture3D_a2022")
 
 [node name="Main" type="Node"]
 
@@ -142,163 +205,229 @@ spot_attenuation = 0.31
 spot_angle = 82.54
 spot_angle_attenuation = 2.20564e-05
 
-[node name="Ground" type="StaticBody3D" parent="."]
+[node name="HUD" parent="." instance=ExtResource("2_wxgl0")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+[node name="Static Environment" type="Node" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Static Environment"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Static Environment/Ground"]
 shape = SubResource("BoxShape3D_sln2t")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Static Environment/Ground"]
 transform = Transform3D(1.00122, 0, 0, 0, 1.00122, 0, 0, 0, 1.00122, 0, 0, 0)
 mesh = SubResource("BoxMesh_ecboy")
 
-[node name="HUD" parent="." instance=ExtResource("2_wxgl0")]
+[node name="Interactables" type="Node" parent="."]
 
-[node name="Environment" type="Node3D" parent="."]
-
-[node name="Couch" type="StaticBody3D" parent="Environment"]
+[node name="Couch" type="StaticBody3D" parent="Interactables"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.03471e-05, 1.91935, -3.9409)
 
-[node name="Collision Box" type="CollisionShape3D" parent="Environment/Couch"]
+[node name="Collision Box" type="CollisionShape3D" parent="Interactables/Couch"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.524323, 0.704788, -0.765869)
 shape = SubResource("BoxShape3D_er2qp")
 
-[node name="Pivot" type="Node3D" parent="Environment/Couch"]
+[node name="Pivot" type="Node3D" parent="Interactables/Couch"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Couch/Pivot"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Interactables/Couch/Pivot"]
 transform = Transform3D(4.71864, 0, 0, 0, 0.792712, 0, 0, 0, 3.61937, -2.09017, 0.655927, -0.349234)
 mesh = SubResource("BoxMesh_ok5t2")
 skeleton = NodePath("../../../..")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment/Couch/Pivot"]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Interactables/Couch/Pivot"]
 transform = Transform3D(1.36253, 0, 0, 0, 1.85631, 0, 0, 0, 3.75599, -5.18224, 0.804273, -0.108564)
 mesh = SubResource("BoxMesh_ok5t2")
 skeleton = NodePath("../../../..")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Environment/Couch/Pivot"]
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Interactables/Couch/Pivot"]
 transform = Transform3D(1.36253, 0, 0, 0, 1.85631, 0, 0, 0, 3.75599, 6.20527, 0.701499, -0.0763047)
 mesh = SubResource("BoxMesh_ok5t2")
 skeleton = NodePath("../../../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment/Couch/Pivot"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Interactables/Couch/Pivot"]
 transform = Transform3D(4.71864, 0, 0, 0, 0.792712, 0, 0, 0, 3.61937, 2.9464, 0.671439, -0.352448)
 mesh = SubResource("BoxMesh_ok5t2")
 skeleton = NodePath("../../../..")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Environment/Couch/Pivot"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Interactables/Couch/Pivot"]
 transform = Transform3D(12.7237, 0, 0, 0, 1.9823, 0, 0, 0, 4.94295, 0.504591, -0.70259, -0.702208)
 mesh = SubResource("BoxMesh_ok5t2")
 skeleton = NodePath("../../../..")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment/Couch/Pivot"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Interactables/Couch/Pivot"]
 transform = Transform3D(12.7237, 0, 0, 0, 3.65853, 0, 0, 0, 1.30342, 0.504591, 1.29261, -2.54267)
 mesh = SubResource("BoxMesh_ok5t2")
 skeleton = NodePath("../../../..")
 
-[node name="Fog" type="FogVolume" parent="Environment/Couch"]
+[node name="Fog" type="FogVolume" parent="Interactables/Couch"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.486504, 0.31719, -0.66039)
 size = Vector3(13.4446, 6.47308, 5.86359)
 material = SubResource("FogMaterial_2qglq")
 
-[node name="SniffableObject" parent="Environment/Couch" node_paths=PackedStringArray("fog") instance=ExtResource("3_m1gxx")]
+[node name="SniffableObject" parent="Interactables/Couch" node_paths=PackedStringArray("fog") instance=ExtResource("3_m1gxx")]
 object_name = "The owner's watch tower"
 fog = NodePath("../Fog")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Couch/SniffableObject"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactables/Couch/SniffableObject"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.121429, 1.362, -0.633651)
 shape = SubResource("BoxShape3D_mjkbi")
 
-[node name="TV Stand" type="StaticBody3D" parent="Environment"]
+[node name="TV Stand" type="StaticBody3D" parent="Interactables"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.11478, 0, 16.6082)
 
-[node name="Collision Box" type="CollisionShape3D" parent="Environment/TV Stand"]
+[node name="Collision Box" type="CollisionShape3D" parent="Interactables/TV Stand"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50931, 1.22656, -0.220337)
 shape = SubResource("BoxShape3D_ryhtr")
 
-[node name="Pivot" type="Node3D" parent="Environment/TV Stand"]
+[node name="Pivot" type="Node3D" parent="Interactables/TV Stand"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/TV Stand/Pivot"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Interactables/TV Stand/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5094, 2.19158, -0.190493)
 mesh = SubResource("BoxMesh_0ni3i")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment/TV Stand/Pivot"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Interactables/TV Stand/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5094, 1.21909, -0.190493)
 mesh = SubResource("BoxMesh_vibta")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Environment/TV Stand/Pivot"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Interactables/TV Stand/Pivot"]
 transform = Transform3D(5.41598, 0, 0, 0, 1, 0, 0, 0, 1, 1.73694, 2.96257, -0.212725)
 mesh = SubResource("CylinderMesh_oql6f")
 skeleton = NodePath("")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment/TV Stand/Pivot"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Interactables/TV Stand/Pivot"]
 transform = Transform3D(0.21907, 0, 0, 0, 0.279462, 0, 0, 0, 0.21907, 1.73694, 2.96257, -0.212725)
 mesh = SubResource("CylinderMesh_q1nfa")
 skeleton = NodePath("")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment/TV Stand/Pivot"]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Interactables/TV Stand/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73556, 6.11897, -0.219051)
 mesh = SubResource("BoxMesh_feove")
 skeleton = NodePath("")
 
-[node name="Fog" type="FogVolume" parent="Environment/TV Stand"]
+[node name="Fog" type="FogVolume" parent="Interactables/TV Stand"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49502, 4.84292, 0.066494)
 size = Vector3(12.5543, 8.80571, 5.86359)
 material = SubResource("FogMaterial_w0ho6")
 
-[node name="SniffableObject" parent="Environment/TV Stand" node_paths=PackedStringArray("fog") instance=ExtResource("3_m1gxx")]
+[node name="SniffableObject" parent="Interactables/TV Stand" node_paths=PackedStringArray("fog") instance=ExtResource("3_m1gxx")]
 object_name = "An otherworldly window"
 fog = NodePath("../Fog")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/TV Stand/SniffableObject"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactables/TV Stand/SniffableObject"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57438, 4.3905, -0.0558014)
 shape = SubResource("BoxShape3D_i5ecy")
 
-[node name="Dog Bed" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0129, 1.02108, 16.0906)
+[node name="Dog Bed" type="MeshInstance3D" parent="Interactables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9168, 1.02108, 16.7311)
 mesh = SubResource("CylinderMesh_doasn")
 skeleton = NodePath("../..")
 
-[node name="Tennis Ball" type="MeshInstance3D" parent="Environment"]
+[node name="SniffableObject" parent="Interactables/Dog Bed" node_paths=PackedStringArray("fog") instance=ExtResource("3_m1gxx")]
+object_name = "Sleepytime junction"
+fog = NodePath("../Fog")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactables/Dog Bed/SniffableObject"]
+shape = SubResource("SphereShape3D_qyvus")
+
+[node name="Fog" type="FogVolume" parent="Interactables/Dog Bed"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0341845, -1.52715, 0.213732)
+size = Vector3(6.96625, 8.80571, 7.45625)
+shape = 0
+material = SubResource("FogMaterial_f38cg")
+
+[node name="Tennis Ball" type="MeshInstance3D" parent="Interactables"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.75886, 1.24194, 2.62539)
 mesh = SubResource("SphereMesh_g17i0")
 skeleton = NodePath("../..")
 
-[node name="Food Bowl" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.45768, 1.13732, 16.096)
+[node name="SniffableObject" parent="Interactables/Tennis Ball" node_paths=PackedStringArray("fog") instance=ExtResource("3_m1gxx")]
+object_name = "The orb of entertainment"
+fog = NodePath("../FogVolume")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactables/Tennis Ball/SniffableObject"]
+shape = SubResource("SphereShape3D_hdcs3")
+
+[node name="FogVolume" type="FogVolume" parent="Interactables/Tennis Ball"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0209961, -0.266357, 0.0448608)
+size = Vector3(1.51855, 1.46729, 1.61316)
+shape = 0
+material = SubResource("FogMaterial_qkeov")
+
+[node name="Food Bowl" type="MeshInstance3D" parent="Interactables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3054, 1.13732, 16.096)
 mesh = SubResource("CylinderMesh_x71kr")
 skeleton = NodePath("../..")
 
-[node name="Water Bowl" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.918, 1.13732, 16.096)
+[node name="SniffableObject" parent="Interactables/Food Bowl" node_paths=PackedStringArray("fog") instance=ExtResource("3_m1gxx")]
+object_name = "My food"
+fog = NodePath("../FogVolume")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactables/Food Bowl/SniffableObject"]
+shape = SubResource("SphereShape3D_7y554")
+
+[node name="FogVolume" type="FogVolume" parent="Interactables/Food Bowl"]
+shape = 0
+material = SubResource("FogMaterial_22u3d")
+
+[node name="Water Bowl" type="MeshInstance3D" parent="Interactables"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0065, 1.13732, 16.096)
 mesh = SubResource("CylinderMesh_x71kr")
 skeleton = NodePath("../..")
 
-[node name="Food cans" type="Node3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.02909, 1.17419, 15.4624)
+[node name="SniffableObject" parent="Interactables/Water Bowl" node_paths=PackedStringArray("fog") instance=ExtResource("3_m1gxx")]
+object_name = "My water"
+fog = NodePath("../FogVolume")
 
-[node name="Pivot" type="Node3D" parent="Environment/Food cans"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactables/Water Bowl/SniffableObject"]
+shape = SubResource("SphereShape3D_7y554")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Food cans/Pivot"]
+[node name="FogVolume" type="FogVolume" parent="Interactables/Water Bowl"]
+shape = 0
+material = SubResource("FogMaterial_8ny4a")
+
+[node name="Food cans" type="Node3D" parent="Interactables"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.69582, 1.17419, -10.3589)
+
+[node name="Pivot" type="Node3D" parent="Interactables/Food cans"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.06838, 0, -3.3935)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Interactables/Food cans/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0414877)
 mesh = SubResource("CylinderMesh_2aq8y")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment/Food cans/Pivot"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Interactables/Food cans/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.303852, 0.166772)
 mesh = SubResource("CylinderMesh_2aq8y")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment/Food cans/Pivot"]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Interactables/Food cans/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.302371, 0.377604)
 mesh = SubResource("CylinderMesh_2aq8y")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Environment/Food cans/Pivot"]
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Interactables/Food cans/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.605394, 0.282568)
 mesh = SubResource("CylinderMesh_2aq8y")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment/Food cans/Pivot"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Interactables/Food cans/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25731)
 mesh = SubResource("CylinderMesh_2aq8y")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Environment/Food cans/Pivot"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Interactables/Food cans/Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.468884)
 mesh = SubResource("CylinderMesh_2aq8y")
+
+[node name="SniffableObject" parent="Interactables/Food cans" node_paths=PackedStringArray("fog") instance=ExtResource("3_m1gxx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87195, 0, -2.8547)
+object_name = "Where the food comes from"
+fog = NodePath("../FogVolume")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactables/Food cans/SniffableObject"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.170014, 0, 0.0504322)
+shape = SubResource("SphereShape3D_m5eti")
+
+[node name="FogVolume" type="FogVolume" parent="Interactables/Food cans"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.07069, 0.529251, -2.8939)
+size = Vector3(2.25049, 3.0585, 2.55359)
+shape = 0
+material = SubResource("FogMaterial_lppyu")
