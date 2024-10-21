@@ -9,6 +9,7 @@ height = 1.49364
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_mmjp5"]
 dof_blur_far_enabled = true
 dof_blur_near_enabled = true
+dof_blur_near_distance = 1.0
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_ljs3r")
@@ -34,4 +35,9 @@ cast_shadow = 0
 mesh = ExtResource("2_b20du")
 skeleton = NodePath("../../Pivot")
 
-[node name="Marker3D" type="Marker3D" parent="."]
+[node name="Sniffcast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -2)
+collision_mask = 2
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false

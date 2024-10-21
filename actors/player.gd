@@ -5,17 +5,30 @@ extends CharacterBody3D
 @export var camera_sens: float = 1
 
 var mouse_captured: bool = false
-
 var move_dir: Vector2 # Input direction for movement
 var look_dir: Vector2 # Input direction for look
-
 var walk_vel: Vector3
+var target: SniffableObject
 
 @onready var camera: Camera3D = $Camera
+@onready var sniffcast: RayCast3D = $Sniffcast
 
 
 func _ready():
 	capture_mouse()
+
+func _process(delta):
+	if sniffcast.is_colliding():
+		var new_target: SniffableObject = sniffcast.get_collider()
+		if new_target != target:
+			if is_instance_valid(target):
+				target.is_being_looked_at = false
+			target = new_target
+			target.is_being_looked_at = true
+	else:
+		if is_instance_valid(target):
+			target.is_being_looked_at = false
+			
 
 func _unhandled_input(event):
 	# Handle mouse input for camera movement

@@ -1,8 +1,7 @@
-[gd_scene load_steps=29 format=3 uid="uid://bi4sheyu36skv"]
+[gd_scene load_steps=27 format=3 uid="uid://bi4sheyu36skv"]
 
 [ext_resource type="PackedScene" uid="uid://18uqiyaprh6k" path="res://actors/player.tscn" id="1_u2fcl"]
 [ext_resource type="Material" uid="uid://i35entxuktx5" path="res://materials/couch.tres" id="2_3d1u6"]
-[ext_resource type="PackedScene" uid="uid://dv16hjjjk02ka" path="res://actors/sniffable_object.tscn" id="3_m1gxx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7887p"]
 
@@ -45,14 +44,11 @@ height = 128
 depth = 128
 noise = SubResource("FastNoiseLite_pct58")
 
-[sub_resource type="FogMaterial" id="FogMaterial_2qglq"]
+[sub_resource type="FogMaterial" id="FogMaterial_wbmfa"]
 density = 20.0
 albedo = Color(0, 0, 0, 1)
 emission = Color(0.633757, 0.633757, 0.633757, 1)
 density_texture = SubResource("NoiseTexture3D_b8hxn")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_mjkbi"]
-size = Vector3(14.3843, 5.36267, 5.53073)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ryhtr"]
 size = Vector3(12.0391, 3.45313, 3.96851)
@@ -119,6 +115,9 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_u2fcl")]
 transform = Transform3D(0.929002, 0, 0.369864, 0, 0.999922, 0, -0.369864, 0, 0.929002, 9.56941, 2.72256, 12.9455)
+speed = 5.0
+acceleration = 100.0
+camera_sens = 1.0
 
 [node name="Ground" type="StaticBody3D" parent="."]
 
@@ -170,16 +169,9 @@ skeleton = NodePath("../../..")
 
 [node name="Fog" type="FogVolume" parent="Couch"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.486504, 0.31719, -0.66039)
+visible = false
 size = Vector3(13.4446, 6.47308, 5.86359)
-material = SubResource("FogMaterial_2qglq")
-
-[node name="SniffableObject" parent="Couch" node_paths=PackedStringArray("fog") instance=ExtResource("3_m1gxx")]
-object_name = "The Owner's Watch Tower"
-fog = NodePath("../Fog")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Couch/SniffableObject"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.121429, 1.362, -0.633651)
-shape = SubResource("BoxShape3D_mjkbi")
+material = SubResource("FogMaterial_wbmfa")
 
 [node name="TV Stand" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.11478, 0, 16.6082)
