@@ -8,5 +8,4 @@ collision_mask = 0
 script = ExtResource("1_bkvby")
 
 [node name="HoldTimer" type="Timer" parent="."]
-
-[connection signal="timeout" from="HoldTimer" to="." method="_on_timer_timeout"]
+one_shot = true

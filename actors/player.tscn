@@ -22,6 +22,13 @@ shape = SubResource("CapsuleShape3D_4mrlv")
 attributes = SubResource("CameraAttributesPractical_mmjp5")
 fov = 90.0
 
+[node name="Sniffcast" type="RayCast3D" parent="Camera"]
+target_position = Vector3(0, 0, -3)
+collision_mask = 2
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
 [node name="ViewModel" type="Node3D" parent="Camera"]
 
 [node name="Ears" type="MeshInstance3D" parent="Camera/ViewModel"]
@@ -35,10 +42,3 @@ transform = Transform3D(-0.0609188, 9.56349e-05, -9.18833e-06, -9.71724e-05, -0.
 cast_shadow = 0
 mesh = ExtResource("2_b20du")
 skeleton = NodePath("../../../Pivot")
-
-[node name="Sniffcast" type="RayCast3D" parent="."]
-target_position = Vector3(0, 0, -2)
-collision_mask = 2
-hit_from_inside = true
-collide_with_areas = true
-collide_with_bodies = false

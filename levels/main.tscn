@@ -1,13 +1,9 @@
-[gd_scene load_steps=41 format=3 uid="uid://bi4sheyu36skv"]
+[gd_scene load_steps=34 format=3 uid="uid://bi4sheyu36skv"]
 
 [ext_resource type="PackedScene" uid="uid://18uqiyaprh6k" path="res://actors/player.tscn" id="1_u2fcl"]
 [ext_resource type="Material" uid="uid://i35entxuktx5" path="res://materials/couch.tres" id="2_3d1u6"]
-[ext_resource type="Script" path="res://ui/hud.gd" id="2_q4hm1"]
-[ext_resource type="FontFile" uid="uid://duqmyyucks52u" path="res://fonts/Itim/Itim-Regular.ttf" id="2_yp6jf"]
+[ext_resource type="PackedScene" uid="uid://cjl7swdcgp66d" path="res://ui/hud.tscn" id="2_wxgl0"]
 [ext_resource type="PackedScene" uid="uid://dv16hjjjk02ka" path="res://actors/sniffable_object.tscn" id="3_m1gxx"]
-[ext_resource type="Texture2D" uid="uid://dwxsylww5pp4b" path="res://ui/chair_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg" id="4_rolpw"]
-[ext_resource type="Texture2D" uid="uid://djf070ughh4n0" path="res://ui/iconmonstr-circle-1-240.png" id="4_u26mc"]
-[ext_resource type="Texture2D" uid="uid://blvp3ahheadn" path="res://ui/iconmonstr-circle-2-240.png" id="5_yl7q1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7887p"]
 sky_top_color = Color(0.245169, 0.455063, 0.709618, 1)
@@ -37,86 +33,6 @@ size = Vector3(50, 2, 50)
 material = SubResource("StandardMaterial3D_8kajt")
 size = Vector3(50, 2, 50)
 
-[sub_resource type="LabelSettings" id="LabelSettings_0t8va"]
-font = ExtResource("2_yp6jf")
-font_size = 26
-font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="Animation" id="Animation_3yap3"]
-resource_name = "hide_level_name"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:label_settings:font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ksi10"]
-_data = {
-"hide_level_name": SubResource("Animation_3yap3")
-}
-
-[sub_resource type="Animation" id="Animation_xalv6"]
-resource_name = "show_progress_bar"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_xsyb1"]
-resource_name = "hide_progress_bar"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_suoqm"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_yo2po"]
-_data = {
-"RESET": SubResource("Animation_suoqm"),
-"hide_progress_bar": SubResource("Animation_xsyb1"),
-"show_progress_bar": SubResource("Animation_xalv6")
-}
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_er2qp"]
 size = Vector3(12.782, 4.92319, 4.94629)
 
@@ -134,7 +50,6 @@ noise = SubResource("FastNoiseLite_pct58")
 
 [sub_resource type="FogMaterial" id="FogMaterial_2qglq"]
 density = 20.0
-albedo = Color(0, 0, 0, 1)
 emission = Color(1, 1, 1, 1)
 density_texture = SubResource("NoiseTexture3D_b8hxn")
 
@@ -174,6 +89,19 @@ roughness = 0.0
 material = SubResource("StandardMaterial3D_ni0rl")
 size = Vector3(12, 6, 0.1)
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_crtt8"]
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_p77bu"]
+noise = SubResource("FastNoiseLite_crtt8")
+
+[sub_resource type="FogMaterial" id="FogMaterial_w0ho6"]
+density = 20.0
+emission = Color(1, 1, 1, 1)
+density_texture = SubResource("NoiseTexture3D_p77bu")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i5ecy"]
+size = Vector3(13.7096, 9.78101, 5.75931)
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_doasn"]
 top_radius = 3.0
 bottom_radius = 3.0
@@ -205,7 +133,7 @@ light_bake_mode = 1
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_u2fcl")]
-transform = Transform3D(0.929002, 0, 0.369864, 0, 0.999922, 0, -0.369864, 0, 0.929002, 9.56941, 2.72256, 12.9455)
+transform = Transform3D(-0.180265, 0, 0.983539, 0, 0.999922, 0, -0.983539, 0, -0.180265, 9.70498, 2.72256, 12.3248)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.64087, 5.89653, -5.87622)
@@ -223,74 +151,7 @@ shape = SubResource("BoxShape3D_sln2t")
 transform = Transform3D(1.00122, 0, 0, 0, 1.00122, 0, 0, 0, 1.00122, 0, 0, 0)
 mesh = SubResource("BoxMesh_ecboy")
 
-[node name="HUD" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("2_q4hm1")
-
-[node name="LevelName" type="Label" parent="HUD"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -91.0
-offset_top = 40.0
-offset_right = 91.0
-offset_bottom = 72.0
-grow_horizontal = 2
-text = "The Living Room"
-label_settings = SubResource("LabelSettings_0t8va")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="HUD/LevelName"]
-libraries = {
-"": SubResource("AnimationLibrary_ksi10")
-}
-
-[node name="LevelProgressBar" type="Control" parent="HUD"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_top = 39.0
-offset_right = 20.0
-offset_bottom = 79.0
-grow_horizontal = 2
-scale = Vector2(1, 1.01088)
-
-[node name="Chair24DpE8eaedFill0Wght400Grad0Opsz24" type="Sprite2D" parent="HUD/LevelProgressBar"]
-z_index = 1
-position = Vector2(19, 18)
-texture = ExtResource("4_rolpw")
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="HUD/LevelProgressBar"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.465
-anchor_top = 0.465
-anchor_right = 0.465
-anchor_bottom = 0.465
-offset_left = -33.6
-offset_top = -33.6
-offset_right = 206.4
-offset_bottom = 206.4
-grow_horizontal = 2
-scale = Vector2(0.28, 0.28)
-fill_mode = 5
-texture_under = ExtResource("4_u26mc")
-texture_progress = ExtResource("5_yl7q1")
-tint_under = Color(0, 0, 0, 0.184314)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="HUD/LevelProgressBar"]
-libraries = {
-"": SubResource("AnimationLibrary_yo2po")
-}
+[node name="HUD" parent="." instance=ExtResource("2_wxgl0")]
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -339,7 +200,7 @@ size = Vector3(13.4446, 6.47308, 5.86359)
 material = SubResource("FogMaterial_2qglq")
 
 [node name="SniffableObject" parent="Environment/Couch" node_paths=PackedStringArray("fog") instance=ExtResource("3_m1gxx")]
-object_name = "The Owner's Watch Tower"
+object_name = "The owner's watch tower"
 fog = NodePath("../Fog")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Couch/SniffableObject"]
@@ -365,22 +226,33 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5094, 1.21909, -0.190493)
 mesh = SubResource("BoxMesh_vibta")
 skeleton = NodePath("../..")
 
-[node name="TV" type="Node3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02214, 3.08788, 16.4249)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/TV"]
-transform = Transform3D(5.41598, 0, 0, 0, 1, 0, 0, 0, 1, -0.39998, -0.125313, -0.0294247)
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Environment/TV Stand/Pivot"]
+transform = Transform3D(5.41598, 0, 0, 0, 1, 0, 0, 0, 1, 1.73694, 2.96257, -0.212725)
 mesh = SubResource("CylinderMesh_oql6f")
 skeleton = NodePath("")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment/TV"]
-transform = Transform3D(0.21907, 0, 0, 0, 0.279462, 0, 0, 0, 0.21907, -0.39998, -0.125313, -0.0294247)
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment/TV Stand/Pivot"]
+transform = Transform3D(0.21907, 0, 0, 0, 0.279462, 0, 0, 0, 0.21907, 1.73694, 2.96257, -0.212725)
 mesh = SubResource("CylinderMesh_q1nfa")
 skeleton = NodePath("")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Environment/TV"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.401362, 3.03109, -0.0357513)
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment/TV Stand/Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73556, 6.11897, -0.219051)
 mesh = SubResource("BoxMesh_feove")
+skeleton = NodePath("")
+
+[node name="Fog" type="FogVolume" parent="Environment/TV Stand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49502, 4.84292, 0.066494)
+size = Vector3(12.5543, 8.80571, 5.86359)
+material = SubResource("FogMaterial_w0ho6")
+
+[node name="SniffableObject" parent="Environment/TV Stand" node_paths=PackedStringArray("fog") instance=ExtResource("3_m1gxx")]
+object_name = "An otherworldly window"
+fog = NodePath("../Fog")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/TV Stand/SniffableObject"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57438, 4.3905, -0.0558014)
+shape = SubResource("BoxShape3D_i5ecy")
 
 [node name="Dog Bed" type="MeshInstance3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0129, 1.02108, 16.0906)

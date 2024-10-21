@@ -11,7 +11,7 @@ var walk_vel: Vector3
 var target: SniffableObject
 
 @onready var camera: Camera3D = $Camera
-@onready var sniffcast: RayCast3D = $Sniffcast
+@onready var sniffcast: RayCast3D = $Camera/Sniffcast
 
 
 func _ready():
@@ -62,12 +62,8 @@ func _walk(delta: float) -> Vector3:
 	
 func check_sniffcast():
 	if sniffcast.is_colliding():
-		var new_target: SniffableObject = sniffcast.get_collider()
-		if new_target != target:
-			if is_instance_valid(target):
-				target.is_being_looked_at = false
-			target = new_target
-			target.is_being_looked_at = true
-	else:
+		target = sniffcast.get_collider()
 		if is_instance_valid(target):
-			target.is_being_looked_at = false
+			target.set_targeted(true)
+	elif is_instance_valid(target):
+			target.set_targeted(false)

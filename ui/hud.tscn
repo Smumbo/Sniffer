@@ -1,0 +1,177 @@
+[gd_scene load_steps=14 format=3 uid="uid://cjl7swdcgp66d"]
+
+[ext_resource type="Script" path="res://ui/hud.gd" id="1_7daga"]
+[ext_resource type="FontFile" uid="uid://duqmyyucks52u" path="res://fonts/Itim/Itim-Regular.ttf" id="2_xg3s2"]
+[ext_resource type="Texture2D" uid="uid://dwxsylww5pp4b" path="res://ui/chair_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg" id="3_m38l7"]
+[ext_resource type="Texture2D" uid="uid://djf070ughh4n0" path="res://ui/iconmonstr-circle-1-240.png" id="4_4xdj5"]
+[ext_resource type="Texture2D" uid="uid://blvp3ahheadn" path="res://ui/iconmonstr-circle-2-240.png" id="5_uwkec"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0t8va"]
+font = ExtResource("2_xg3s2")
+font_size = 26
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_3yap3"]
+resource_name = "hide_level_name"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:label_settings:font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ksi10"]
+_data = {
+"hide_level_name": SubResource("Animation_3yap3")
+}
+
+[sub_resource type="Animation" id="Animation_xalv6"]
+resource_name = "show_progress_bar"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xsyb1"]
+resource_name = "hide_progress_bar"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_suoqm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yo2po"]
+_data = {
+"RESET": SubResource("Animation_suoqm"),
+"hide_progress_bar": SubResource("Animation_xsyb1"),
+"show_progress_bar": SubResource("Animation_xalv6")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_8q4al"]
+font = ExtResource("2_xg3s2")
+font_size = 18
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_7daga")
+
+[node name="LevelName" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -91.0
+offset_top = 40.0
+offset_right = 91.0
+offset_bottom = 72.0
+grow_horizontal = 2
+text = "The Living Room"
+label_settings = SubResource("LabelSettings_0t8va")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelName"]
+libraries = {
+"": SubResource("AnimationLibrary_ksi10")
+}
+
+[node name="LevelProgressBar" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 39.0
+offset_right = 20.0
+offset_bottom = 79.0
+grow_horizontal = 2
+scale = Vector2(1, 1.01088)
+
+[node name="Chair24DpE8eaedFill0Wght400Grad0Opsz24" type="Sprite2D" parent="LevelProgressBar"]
+z_index = 1
+position = Vector2(19, 18)
+texture = ExtResource("3_m38l7")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="LevelProgressBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.465
+anchor_top = 0.465
+anchor_right = 0.465
+anchor_bottom = 0.465
+offset_left = -33.6
+offset_top = -33.6
+offset_right = 206.4
+offset_bottom = 206.4
+grow_horizontal = 2
+scale = Vector2(0.28, 0.28)
+fill_mode = 5
+texture_under = ExtResource("4_4xdj5")
+texture_progress = ExtResource("5_uwkec")
+tint_under = Color(0, 0, 0, 0.184314)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelProgressBar"]
+libraries = {
+"": SubResource("AnimationLibrary_yo2po")
+}
+
+[node name="ObjectName" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -62.0
+offset_right = 20.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_8q4al")
+
+[node name="ButtonPrompt" type="Sprite2D" parent="."]

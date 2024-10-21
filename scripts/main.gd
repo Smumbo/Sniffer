@@ -17,4 +17,4 @@ func _process(delta):
 
 func sniffed():
 	objects_sniffed += 1
-	completion_percent = (objects_sniffed / total_sniffable_objects) * 100
+	completion_percent = (float(objects_sniffed) / total_sniffable_objects) * 100
